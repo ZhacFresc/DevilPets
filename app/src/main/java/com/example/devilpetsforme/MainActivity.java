@@ -1,10 +1,8 @@
 package com.example.devilpetsforme;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,22 +11,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     API api = API.retrofit.create(API.class);
-    final Call<Pets> call = api.repoPets(676767);
+    API_POST api_post = API.retrofit.create(API_POST.class);
+    public Call<Pets> call = api.repoPets(676767);
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         inputId = findViewById(R.id.editTextTextPersonName);
         inputName = findViewById(R.id.editTextTextPersonName2);
         inputStatus = findViewById(R.id.editTextTextPersonName3);
+        call = api_post;
         call.enqueue(new Callback<Pets>() {
             @Override
             public void onResponse(Call<Pets> call, Response<Pets> response) {
@@ -86,6 +80,5 @@ public class MainActivity extends AppCompatActivity {
                 inputStatus.setText("F");
             }
         });
-        }
     }
 }
